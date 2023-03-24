@@ -1,4 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿// https://app.codility.com/programmers/lessons/2-arrays/cyclic_rotation/
 Console.WriteLine("Hello, World!");
 
 var rotation = new Solution();
