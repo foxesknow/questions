@@ -43,11 +43,8 @@ namespace Crossword
                 if(cell != Cell.None) break;
             }
 
-            if(cell == Cell.None)
-            {
-                // We couldn't find a cell that needs solving, so we're done!
-                return true;
-            }
+            // If we couldn't find a cell that needs solving then we're done!
+            if(cell == Cell.None) return true;
 
             if(CanGoRight(row, column))
             {
