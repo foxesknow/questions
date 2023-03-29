@@ -194,14 +194,6 @@ public class Crossword {
         }
     }
 
-    public static Crossword fromDescription(String description) {
-        var board = description.lines()
-                .map(Crossword::stringToRow)
-                .toArray(Cell[][]::new);
-
-        return new Crossword(board);
-    }
-
     @Override
     public String toString() {
         var b = new StringBuilder();
@@ -209,13 +201,21 @@ public class Crossword {
         for (var row = 0; row < m_RowCount; row++) {
             for (var column = 0; column < m_ColumnCount; column++) {
                 var cell = m_Board[row][column];
-                var c = (cell == null ? '.' : cell.getCurrentChar());
+                var c = (cell == null ? '\u2588' : cell.getCurrentChar());
                 b.append(c);
             }
 
             b.append(System.lineSeparator());
         }
         return b.toString();
+    }
+
+    public static Crossword fromDescription(String description) {
+        var board = description.lines()
+                .map(Crossword::stringToRow)
+                .toArray(Cell[][]::new);
+
+        return new Crossword(board);
     }
 
     private static Cell[] stringToRow(String s) {
