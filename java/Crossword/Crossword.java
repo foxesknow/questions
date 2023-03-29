@@ -73,7 +73,7 @@ public class Crossword {
         }
 
         if (canGoDown(row, column)) {
-            // Get the current word at [row, col] and to the right.
+            // Get the current word at [row, col] and down.
             // It may just be spaces, or it may have some letters in from words that
             // intersect it.
             var pattern = getWordDown(row, column);
