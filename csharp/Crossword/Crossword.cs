@@ -216,7 +216,7 @@ namespace Crossword
             }
         }
 
-        public override string ToString()
+        private string Render(Func<Cell, string> renderer)
         {
             var b = new StringBuilder((this.Columns + 2) * this.Rows);
 
@@ -225,13 +225,24 @@ namespace Crossword
                 for(var column = 0; column < this.Columns; column++)
                 {
                     var cell = m_Cells[row, column];
-                    b.Append(cell.ToString());
+                    var asString = renderer(cell);
+                    b.Append(asString);
                 }
 
                 b.AppendLine();
             }
 
             return b.ToString();
+        }
+
+        public override string ToString()
+        {
+            return Render(cell => cell.ToString());
+        }
+
+        public string ToConsole()
+        {
+            return Render(cell => cell.ToConsole());
         }
 
         public static Crossword FromDescription(string description)

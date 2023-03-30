@@ -93,7 +93,7 @@ namespace Crossword
             {
                 Console.WriteLine("Solution");
                 Console.WriteLine("--------");
-                Console.WriteLine(crossword);
+                Console.WriteLine(crossword.ToConsole());
                 Console.WriteLine();
             }
         }

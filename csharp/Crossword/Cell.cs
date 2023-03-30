@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Crossword
 {
-    internal record struct Cell
+    internal readonly record struct Cell
     {
         public static readonly Cell None = new();
 
@@ -22,6 +22,13 @@ namespace Crossword
         public bool IsStartCell
         {
             get{return this.WordsFromHere > 0;}
+        }
+
+        public string ToConsole()
+        {
+            if(this.Character == '\0') return "\u2588";
+            
+            return this.Character.ToString();
         }
 
         public override string ToString()
