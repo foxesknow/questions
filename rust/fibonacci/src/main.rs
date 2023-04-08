@@ -42,13 +42,13 @@ fn fib_mem(n : u32) -> u128
     {
         if let Some(&number) = cache.get(&n) 
         {
-            return number;
+            number
         }
         else
         {
             let x = execute(cache, n - 1) + execute(cache, n - 2);
             cache.insert(n, x);
-            return x;
+            x
         }
     }
 }
