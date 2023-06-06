@@ -81,6 +81,5 @@ class Tests(unittest.TestCase):
           self.assertTrue(solution.findMedianSortedArrays([1,3,5,7], [2,4,6]) == 4)
 
 
-
 if __name__ == '__main__':
     unittest.main()
