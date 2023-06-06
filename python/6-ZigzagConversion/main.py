@@ -2,12 +2,12 @@ import unittest
 
 class Solution:
     def convert(self, s: str, numRows: int) -> str:
+        if numRows == 1:
+             return s;
         
-        tuples = []
-        for t in self.generate_tuples(s, numRows):
-            tuples.append(t)
-
+        tuples = list(self.generate_tuples(s, numRows))
         tuples.sort(key = lambda t: (t[0], t[1]))
+        
         return "".join(str(t[2]) for t in tuples)
     
 
@@ -25,7 +25,7 @@ class Solution:
                 column += 1
                 delta = 1
             elif row == num_rows:
-                row = max(0, row - 2)
+                row = row - 2
                 column += 1
                 delta = -1
 
@@ -46,6 +46,10 @@ class Tests(unittest.TestCase):
     def test_example3(self):
           solution = Solution()
           self.assertTrue(solution.convert("AB", 1) == "AB")
+
+    def test_example4(self):
+          solution = Solution()
+          self.assertTrue(solution.convert("ABCDEFG", 1) == "ABCDEFG")
 
 
 if __name__ == '__main__':
