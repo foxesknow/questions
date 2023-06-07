@@ -17,10 +17,6 @@ class Solution:
             numeral += "D"
             num -= 500
 
-            while num >= 100:
-                numeral += "C"
-                num -= 100
-
 #####################################
         if num >= 400:
             numeral += "CD"
@@ -53,7 +49,7 @@ class Solution:
             numeral += "IX"
             num -= 9
         
-        while num >= 5:
+        if num >= 5:
             numeral += "V"
             num -= 5
 
