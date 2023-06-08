@@ -3,21 +3,20 @@ import unittest
 
 class Solution:
     def searchInsert(self, nums: List[int], target: int) -> int:
-        lower, upper = 0, len(nums)
+        lower, upper = 0, len(nums) - 1
 
-        while lower <= upper:
+        while upper >= lower:
             mid = (lower + upper) // 2
 
             if nums[mid] == target:
                 return mid
             
-            if mid == lower:
-                return mid if nums[mid] > target else mid + 1
-            
             if nums[mid] > target:
                 upper = mid - 1
             else:
                 lower = mid + 1
+
+        return lower
 
 
 
