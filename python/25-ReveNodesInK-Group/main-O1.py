@@ -9,43 +9,46 @@ class ListNode:
         self.val = val
         self.next = next
 
+    def __repr__(self):
+        return f"{self.val}"
+
 class Solution:
     def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
         if k == 1 or head is None:
             return head
         
-        block: List[ListNode] = []
+        group = self.reverse_group(head, head, k)
 
-        next = head
-        for i in range(k):
-            block.append(next)
-            next = next.next
-
-            if next is None:
-                break
-            
-        if len(block) != k:
+        if group is None:
             return head
-        
-        for i in range(1, k):
-            block[i].next = block[i - 1]
-
-        block[0].next = self.reverseKGroup(next, k)
-
-        return block[-1]
+        else:
+            group.next = self.reverseKGroup(group.next, k)
+            return group
     
-    def reverse_group(self, head: Optional[ListNode], k: int) -> Tuple[Optional[ListNode], Optional[ListNode]]:
-        next = None if head is None else head.next
+    def reverse_group(self, group_head: Optional[ListNode], current: Optional[ListNode], k: int) -> Optional[ListNode]:
+        if k ==1 and not current:
+            return None
 
-        if k == 0:
-            return (head, next)
+        if k == 1:
+            return current
+
+        if not current:
+            return None
         
-        (x, rest) = self.reverse_group(head.next, k - 1)
-        if rest is None:
-            return (head, None)
+        if not current.next and k != 1:
+            return None
+
+        if not current.next:
+            return current
         
-        head.next = self.reverse_group(rest, k)
-        return (x, rest)
+        new_head = self.reverse_group(group_head, current.next, k - 1)
+        if not new_head:
+            return None
+
+        current.next.next = current
+        current.next = None
+
+        return new_head
         
     
     def make_list(self, numbers: List[int]) -> ListNode:
@@ -82,7 +85,8 @@ class Tests(unittest.TestCase):
     def test_example1(self):
         solution = Solution()
         nodes = solution.make_list([1,2,3])
-        (n, rest) = solution.reverse_group(nodes, 2)
+        #n = solution.reverseKGroup(nodes, 2)
+        n = solution.reverse_group(nodes, nodes, 4)
         solution.print_node(n)
 
 if __name__ == '__main__':
