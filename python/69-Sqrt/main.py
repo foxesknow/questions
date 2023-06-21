@@ -28,7 +28,6 @@ class Solution:
 class Tests(unittest.TestCase):
     def test_example1(self):
         solution = Solution()
-        x = solution.mySqrt(4)
         self.assertEqual(solution.mySqrt(4), 2)
 
     def test_example2(self):
