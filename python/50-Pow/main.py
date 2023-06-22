@@ -8,18 +8,18 @@ class Solution:
         if n == 1:
             return x
 
+        if n == -1:
+            return 1 / x
+
         if x == 0:
             return 0
 
-        result = 1
-        scaling = abs(n)
-        is_negative = (n < 0)
-        
-        for i in range(abs(n)):
-            if is_negative:
-                result /= x
-            else:
-                result *= x
+        half = self.myPow(x, int(n / 2))        
+        result = half * half
+
+        if abs(n) % 2 == 1:
+            sign = 1 if n > 0 else -1
+            result *= self.myPow(x, sign)
 
         return result
 
@@ -39,6 +39,10 @@ class Tests(unittest.TestCase):
     def test_example4(self):
         solution = Solution()
         self.assertAlmostEqual(solution.myPow(-2, 2), 4)
+
+    def test_example5(self):
+        solution = Solution()
+        self.assertAlmostEqual(solution.myPow(34.00515, -3), 3e-05)
 
 if __name__ == '__main__':
     unittest.main()
