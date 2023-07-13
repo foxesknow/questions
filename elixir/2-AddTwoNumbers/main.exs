@@ -13,19 +13,8 @@ defmodule Solution do
   end
 
   defp add(l1, l2, carry) when l1 != nil and l2 != nil do
-    total = l1.val + l2.val + carry
-    digit = rem(total, 10)
-    carry = div(total, 10)
-
+    {digit, carry} = digit_carry(l1.val + l2.val + carry)
     %ListNode{val: digit, next: add(l1.next, l2.next, carry)}
-  end
-
-  defp add(l1, nil, 0) do
-    l1
-  end
-
-  defp add(nil, l2, 0) do
-    l2
   end
 
   defp add(l1, nil, 1) when l1 != nil do
@@ -40,6 +29,14 @@ defmodule Solution do
 
   defp add(nil, nil, 1) do
     %ListNode{val: 1}
+  end
+
+    defp add(l1, l2, 0) when l1 == nil or l2 == nil do
+    if l1 == nil do
+      l2
+    else
+      l1
+    end
   end
 
   defp digit_carry(total) do
