@@ -5,11 +5,11 @@ defmodule Solution do
     flatten(red, white, blue, [])
   end
 
-  def flatten(0, 0, 0, acc) do
+  defp flatten(0, 0, 0, acc) do
     acc
   end
 
-  def flatten(red, white, blue, acc) do
+  defp flatten(red, white, blue, acc) do
     cond do
       blue > 0  -> flatten(red, white, blue - 1, [2 | acc])
       white > 0 -> flatten(red, white - 1, blue, [1 | acc])
