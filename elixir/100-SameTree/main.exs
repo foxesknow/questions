@@ -8,14 +8,12 @@ defmodule TreeNode do
 end
 
 defmodule Solution do
-  @spec is_same_tree(p :: TreeNode.t | nil, q :: TreeNode.t | nil) :: boolean
+  def is_same_tree(nil, nil), do: true
+  def is_same_tree(nil, %TreeNode{}), do: false
+  def is_same_tree(%TreeNode{}, nil), do: false
+
   def is_same_tree(p, q) do
-    cond do
-      p == nil and q == nil -> true
-      p == nil and q != nil -> false
-      p != nil and q == nil -> false
-      true -> p.val == q.val and is_same_tree(p.left, q.left) and is_same_tree(p.right, q.right)
-    end
+    p.val == q.val and is_same_tree(p.left, q.left) and is_same_tree(p.right, q.right)
   end
 end
 
