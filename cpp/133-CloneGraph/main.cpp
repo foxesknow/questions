@@ -52,25 +52,7 @@ public:
         if(node == nullptr) return node;
 
         unordered_map<int, Node*> nodeCache;
-        
-        deque<Node*> work;
-        work.push_back(node);
-
-        auto new_start = getOrCreate(node, nodeCache);
-
-        while(!work.empty())
-        {
-            const auto nextNode = work.front();
-            work.pop_front();
-
-            // If we've already processed it then store
-            if(nodeCache.find(nextNode->val) != nodeCache.end()) continue;
-
-            getOrCreate(nextNode, nodeCache);
-            work.insert(work.begin(), nextNode->neighbors.begin(), nextNode->neighbors.end());
-        }
-
-        return new_start;
+        return  getOrCreate(node, nodeCache);
     }
 };
 
@@ -95,7 +77,7 @@ void test1()
     node4->neighbors.push_back(node1);
     node4->neighbors.push_back(node3);
 
-    s.cloneGraph(node1);
+    auto clone = s.cloneGraph(node1);
 }
 
 void test2()
