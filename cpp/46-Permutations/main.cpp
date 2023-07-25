@@ -23,6 +23,6 @@ public:
 int main()
 {
     Solution s;
-    vector<int> v = {0,-1,1};
+    vector<int> v = {1,1,1};
     auto result = s.permute(v);
 }
