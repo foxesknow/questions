@@ -24,23 +24,22 @@ public:
 
         if(nums.size() == 0) return result;
 
-        bool rangeEmpty = true;
-        int start = 0;
-        int stop = 0;
-
-        for(auto num : nums)
+        if(nums.size() == 1)
         {
-            if(rangeEmpty)
-            {
-                start = stop = num;
-                rangeEmpty = false;
-                continue;
-            }
+            result.push_back(makeString(nums[0], nums[0]));
+            return result;
+        }
+
+        int start = nums[0];
+        int stop = start;
+
+        for(auto i = 1 ; i < nums.size(); ++i)
+        {
+            auto num = nums[i];
 
             if(num == stop + 1)
             {
                 stop = num;
-                rangeEmpty = false;
                 continue;
             }
 
@@ -48,13 +47,9 @@ public:
             result.push_back(makeString(start, stop));
             
             start = stop = num;
-            rangeEmpty = false;
         }
 
-        if(!rangeEmpty)
-        {
-            result.push_back(makeString(start, stop));
-        }
+        result.push_back(makeString(start, stop));
 
         return result;
     }
@@ -65,4 +60,5 @@ int main()
     Solution s;
     auto test1 = s.summaryRanges({0,1,2,4,5,7});
     auto test2 = s.summaryRanges({0,2,4,6});
+    auto test3 = s.summaryRanges({0,1,2,3,4});
 }
