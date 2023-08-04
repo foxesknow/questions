@@ -449,3 +449,7 @@ Footer navigation
 *.exe
 *.out
 *.app
+
+# Question specific ignore
+# VS Code will build all main.cpp to main, so ignore them
+main
