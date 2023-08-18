@@ -13,9 +13,7 @@ public:
     {
         if(head == nullptr) return head;
 
-        auto newHead = head;
-        head = head->next;
-        newHead->next = nullptr;
+        ListNode *newHead = nullptr;
 
         while(head)
         {
