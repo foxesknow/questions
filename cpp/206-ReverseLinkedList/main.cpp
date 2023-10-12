@@ -11,8 +11,6 @@ class Solution
 public:
     ListNode* reverseList(ListNode* head) 
     {
-        if(head == nullptr) return head;
-
         ListNode *newHead = nullptr;
 
         while(head)
