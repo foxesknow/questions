@@ -1,0 +1,143 @@
+#include <iostream>
+#include <utility>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+/*
+
+Innermost brackets
+
+Given a string that may contain brackets, and no unbalanced brackets, find the substring(s) within the most deeply nested balanced bracket(s).
+The following sets of characters should be considered as open/close brackets respectively: ( ), [ ], { }
+If there are multiple sets of brackets with the same highest depth, your function should return all substrings. If there are no brackets in the string, then your function should return the entire input string.
+
+"ab(c(d)e)"      ->  "d"
+"[a{{b}c}d(e)]"  ->  "b"
+"((a)b(cd)ef)"    ->  "a", "cd"
+"(ab[]c){d{e}}"  ->  "", "e"
+"Hello, World!"  ->  "Hello, World!"
+
+*/
+
+using namespace std;
+
+using Details = pair<string, int>;
+
+bool isOpen(char c)
+{
+    return c == '(' || c == '[' || c == '{';
+}
+
+bool isClose(char c)
+{
+    return c == ')' || c == ']' || c == '}';
+}
+
+void process(vector<Details> &details, string::const_iterator &it, string::const_iterator end, int count)
+{
+    string current;
+
+    while(it != end)
+    {
+        auto c = *it;
+
+        if(isOpen(c))
+        {
+            if(!current.empty())
+            {
+                details.emplace_back(current, count);
+            }
+
+            ++it;
+            current.clear();
+
+            process(details, it, end, count + 1);
+        }
+        else if(isClose(c))
+        {
+            if(!current.empty())
+            {
+                details.emplace_back(current, count);
+            }
+
+            ++it;
+            return;
+        }
+        else
+        {
+            current += c;
+            ++it;
+        }
+    }
+}
+
+vector<string> getMostDeeply(string expression)
+{
+    vector<Details> details;
+    auto it = cbegin(expression);
+    process(details, it, cend(expression), 0);
+
+    sort(rbegin(details), rend(details), [](auto &lhs, auto &rhs){return lhs.second < rhs.second;});
+
+    vector<string> results;
+    auto depth = details[0].second;
+
+    for(const auto &item : details)
+    {
+        if(item.second == depth)
+        {
+            results.push_back(item.first);
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    return results;
+}
+
+void print(const vector<string> &results)
+{
+    for(const auto &item : results)
+    {
+        cout << '\"' << item << '\"' << " ";
+    }
+
+    cout << endl;
+}
+
+void test1()
+{
+    auto mostDeeply = getMostDeeply("b(c(d)e)");
+    print(mostDeeply);
+}
+
+void test2()
+{
+    auto mostDeeply = getMostDeeply("[a{{b}c}d(e)]");
+    print(mostDeeply);
+}
+
+void test3()
+{
+    auto mostDeeply = getMostDeeply("((a)b(cd)ef)");
+    print(mostDeeply);
+}
+
+void test4()
+{
+    auto mostDeeply = getMostDeeply("(ab[]c){d{e}}");
+    print(mostDeeply);
+}
+
+int main()
+{
+    test1();
+    test2();
+    test3();
+    test4();
+
+    return 0;
+}
