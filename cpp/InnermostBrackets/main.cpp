@@ -34,30 +34,31 @@ bool isClose(char c)
     return c == ')' || c == ']' || c == '}';
 }
 
-int process(vector<Details> &details, string::const_iterator &it, string::const_iterator end, int count)
+int generateDepth(vector<Details> &details, string::const_iterator it, string::const_iterator end)
 {
+    int count = 0;
     int maxDepth = count;
 
     string current;
 
     while(it != end)
     {
-        auto c = *it;
+        const auto c = *it;
 
         if(isOpen(c))
         {
             details.emplace_back(current, count);
             ++it;
+            ++count;
             current.clear();
 
-            auto subDepth = process(details, it, end, count + 1);
-            maxDepth = max(maxDepth, subDepth);
+            maxDepth = max(maxDepth, count);
         }
         else if(isClose(c))
         {
             details.emplace_back(current, count);
             ++it;
-            break;
+            --count;
         }
         else
         {
@@ -72,8 +73,7 @@ int process(vector<Details> &details, string::const_iterator &it, string::const_
 vector<string> getMostDeeply(string expression)
 {
     vector<Details> details;
-    auto it = cbegin(expression);
-    auto maxDepth = process(details, it, cend(expression), 0);
+    const auto maxDepth = generateDepth(details, cbegin(expression), cend(expression));
 
     vector<string> results;
 
