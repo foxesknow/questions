@@ -70,16 +70,15 @@ vector<string> getMostDeeply(string expression)
     auto it = cbegin(expression);
     process(details, it, cend(expression), 0);
 
+    vector<string> results;
+
     if(details.size() == 0)
     {
-        details.emplace_back(expression, 0);
-    }
-    else
-    {
-        sort(rbegin(details), rend(details), [](auto &lhs, auto &rhs){return lhs.second < rhs.second;});
+        results.push_back(expression);
+        return results;
     }
 
-    vector<string> results;
+    sort(rbegin(details), rend(details), [](auto &lhs, auto &rhs){return lhs.second < rhs.second;});    
     auto depth = details[0].second;
 
     for(const auto &item : details)
