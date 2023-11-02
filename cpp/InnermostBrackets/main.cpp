@@ -34,8 +34,10 @@ bool isClose(char c)
     return c == ')' || c == ']' || c == '}';
 }
 
-void process(vector<Details> &details, string::const_iterator &it, string::const_iterator end, int count)
+int process(vector<Details> &details, string::const_iterator &it, string::const_iterator end, int count)
 {
+    int maxDepth = count;
+
     string current;
 
     while(it != end)
@@ -48,7 +50,8 @@ void process(vector<Details> &details, string::const_iterator &it, string::const
             ++it;
             current.clear();
 
-            process(details, it, end, count + 1);
+            auto subDepth = process(details, it, end, count + 1);
+            maxDepth = max(maxDepth, subDepth);
         }
         else if(isClose(c))
         {
@@ -62,13 +65,15 @@ void process(vector<Details> &details, string::const_iterator &it, string::const
             ++it;
         }
     }
+
+    return maxDepth;
 }
 
 vector<string> getMostDeeply(string expression)
 {
     vector<Details> details;
     auto it = cbegin(expression);
-    process(details, it, cend(expression), 0);
+    auto maxDepth = process(details, it, cend(expression), 0);
 
     vector<string> results;
 
@@ -77,19 +82,12 @@ vector<string> getMostDeeply(string expression)
         results.push_back(expression);
         return results;
     }
-
-    sort(rbegin(details), rend(details), [](auto &lhs, auto &rhs){return lhs.second < rhs.second;});    
-    auto depth = details[0].second;
-
+    
     for(const auto &item : details)
     {
-        if(item.second == depth)
+        if(item.second == maxDepth)
         {
             results.push_back(item.first);
-        }
-        else
-        {
-            break;
         }
     }
 
