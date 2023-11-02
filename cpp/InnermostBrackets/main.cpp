@@ -44,11 +44,7 @@ void process(vector<Details> &details, string::const_iterator &it, string::const
 
         if(isOpen(c))
         {
-            if(!current.empty())
-            {
-                details.emplace_back(current, count);
-            }
-
+            details.emplace_back(current, count);
             ++it;
             current.clear();
 
@@ -56,13 +52,9 @@ void process(vector<Details> &details, string::const_iterator &it, string::const
         }
         else if(isClose(c))
         {
-            if(!current.empty())
-            {
-                details.emplace_back(current, count);
-            }
-
+            details.emplace_back(current, count);
             ++it;
-            return;
+            break;
         }
         else
         {
@@ -78,7 +70,14 @@ vector<string> getMostDeeply(string expression)
     auto it = cbegin(expression);
     process(details, it, cend(expression), 0);
 
-    sort(rbegin(details), rend(details), [](auto &lhs, auto &rhs){return lhs.second < rhs.second;});
+    if(details.size() == 0)
+    {
+        details.emplace_back(expression, 0);
+    }
+    else
+    {
+        sort(rbegin(details), rend(details), [](auto &lhs, auto &rhs){return lhs.second < rhs.second;});
+    }
 
     vector<string> results;
     auto depth = details[0].second;
@@ -110,7 +109,7 @@ void print(const vector<string> &results)
 
 void test1()
 {
-    auto mostDeeply = getMostDeeply("b(c(d)e)");
+    auto mostDeeply = getMostDeeply("ab(c(d)e)");
     print(mostDeeply);
 }
 
@@ -132,12 +131,19 @@ void test4()
     print(mostDeeply);
 }
 
+void test5()
+{
+    auto mostDeeply = getMostDeeply("Hello, World!");
+    print(mostDeeply);
+}
+
 int main()
 {
     test1();
     test2();
     test3();
     test4();
+    test5();
 
     return 0;
 }
