@@ -49,5 +49,14 @@ namespace LeetCodeTests.Q1_TwoSum
             
             Assert.That(result.Length, Is.EqualTo(0));
         }
+
+        [Test]
+        public void Example5()
+        {
+            var solution = new Solution();
+            var result = solution.TwoSum([1,1,1,1,1,4,1,1,1,1,1,7,1,1,1,1,1], 11);
+            
+            Assert.That(result.Length, Is.EqualTo(2));
+        }
     }
 }

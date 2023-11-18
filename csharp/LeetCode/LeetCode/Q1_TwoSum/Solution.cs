@@ -15,7 +15,7 @@
                 }
                 else
                 {
-                    indexes.Add(value, i);
+                    indexes[value] = i;
                 }
             }
 
