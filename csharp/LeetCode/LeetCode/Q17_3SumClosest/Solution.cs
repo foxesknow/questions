@@ -33,7 +33,6 @@ namespace LeetCode.Q17_3SumClosest
                     var second = nums[left];
                     var third = nums[right];
 
-                    // If the first 2 are bigger than zero then we can stop checking
                     var sum = first + second + third;                    
                     if(sum == target) return sum;
 
