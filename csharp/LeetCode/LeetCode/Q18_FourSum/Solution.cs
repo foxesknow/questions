@@ -31,7 +31,10 @@ namespace LeetCode.Q18_FourSum
         {
             for(int i = startIndex; i <= lastIndex; i++)
             {
-                var first = nums[i];
+                long first = nums[i];
+
+                // We can bail out early as everything else is positive which will never bring us back to the target
+                if(target > 0 && first > target) break;
 
                 // It's the same start number as last time, so don't bother again
                 if(i > startIndex && first == nums[i - 1]) continue;
@@ -44,10 +47,13 @@ namespace LeetCode.Q18_FourSum
                     var second = nums[left];
                     var third = nums[right];
 
-                    var sum = (long)first + second + third;
+                    // We can bail out early as everything else is positive which will never bring us back to the target
+                    if(target > 0 && first + second > target) break;
+
+                    var sum = first + second + third;
                     if(sum == target)
                     {
-                        numbers.Add(new int[]{currentValue, first, second, third});
+                        numbers.Add(new int[]{currentValue, (int)first, second, third});
                         
                         // We need to move to the next numbers that are't the same as
                         // the ones we're currently looking at
