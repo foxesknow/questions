@@ -33,7 +33,7 @@ namespace LeetCodeTests.Q45_JumpGame2
         {
             var s = new Solution();
             var steps = s.Jump(new[]{5,6,4,4,6,9,4,4,7,4,4,8,2,6,8,1,5,9,6,5,2,7,9,7,9,6,9,4,1,6,8,8,4,4,2,0,3,8,5});
-            Assert.That(steps, Is.EqualTo(2));
+            Assert.That(steps, Is.EqualTo(5));
         }
 
         [Test]
@@ -41,6 +41,14 @@ namespace LeetCodeTests.Q45_JumpGame2
         {
             var s = new Solution();
             var steps = s.Jump(new[]{1,2,1,1,1});
+            Assert.That(steps, Is.EqualTo(3));
+        }
+
+        [Test]
+        public void Example5()
+        {
+            var s = new Solution();
+            var steps = s.Jump(new[]{5,9,3,2,1,0,2,3,3,1,0,0});
             Assert.That(steps, Is.EqualTo(3));
         }
     }
