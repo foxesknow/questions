@@ -14,14 +14,13 @@ namespace LeetCode.Q283_MoveZeros
 
             for(int i = 0; i < nums.Length; i++)
             {
-                if(nums[i] != 0)
+                var n = nums[i];
+                if(n != 0)
                 {
-                    nums[insertionPoint] = nums[i];
+                    (nums[insertionPoint], nums[i]) = (nums[i], nums[insertionPoint]);
                     insertionPoint++;
                 }
             }
-
-            Array.Fill(nums, 0, insertionPoint, nums.Length - insertionPoint);
         }
     }
 }
