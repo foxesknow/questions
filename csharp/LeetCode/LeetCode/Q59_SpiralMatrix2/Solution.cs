@@ -26,24 +26,28 @@ namespace LeetCode.Q59_SpiralMatrix2
 
                 if(colDirection == 1 && col == colStop)
                 {
+                    // We're going left to right and have reached the end
                     rowDirection = 1;
                     colDirection = 0;
                     rowStart++;
                 }
                 else if(colDirection == -1 && col == colStart)
                 {
+                    // We're going right to left and have reached the beginning
                     rowDirection = -1;
                     colDirection = 0;
                     rowStop--;
                 }
                 else if(rowDirection == 1 && row == rowStop)
                 {
+                    // We're going top to bottom and have reached the bottom
                     rowDirection = 0;
                     colDirection = -1;
                     colStop--;
                 }
                 else if(rowDirection == -1 && row == rowStart)
                 {
+                    // We're going bottom to top and have reached the top
                     rowDirection = 0;
                     colDirection = 1;
                     colStart++;
