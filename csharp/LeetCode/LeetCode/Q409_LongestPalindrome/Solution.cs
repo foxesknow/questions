@@ -17,46 +17,26 @@ namespace LeetCode.Q409_LongestPalindrome
                 var index = (char.IsLower(c) ? c - 'a' : 26 + (c - 'A'));
                 countMap[index]++;                
             }
-
-            var largestOddCount = 0;
-            int largestOddCharacterIndex = -1;
-
-            for(int i = 0; i < countMap.Length; i++)
-            {
-                var count = countMap[i];
-                if((count & 1) == 1 && count > largestOddCount)
-                {
-                    largestOddCount = count;
-                    largestOddCharacterIndex = i;
-                }
-            }
-
+            
             /*
-	         * Now we've got our stats the rule is that all even count characters
-	         * can go in as they evenly divide either side of the center.
-	         * For any remaining odd characters that aren't the largest one found above
-	         * we round down to the nearest even count and use that
-	         */
+             * Now that we've got our counts we just need to sum up all the evens.
+             * For the odds we round down to the nearest even, except in one case
+             * which will be the letter in the middle
+             */
 
-            var sumOfEvens = 0;
-            var sumOfRoundedDownOdds = 0;
+            bool foundOdd = false;
+            var overallCount = 0;
 
             for(int i = 0; i < countMap.Length; i++)
             {
                 var count = countMap[i];
-                if(count == 0 || i == largestOddCharacterIndex) continue;
+                
+                foundOdd |= (count & 1) == 1;
+                overallCount += count & ~1;
 
-                if((count & 1) == 0)
-                {
-                    sumOfEvens += count;
-                }
-                else
-                {
-                    sumOfRoundedDownOdds += (count - 1);
-                }
             }
 
-            return sumOfEvens + sumOfRoundedDownOdds + largestOddCount;
+            return overallCount + (foundOdd ? 1 : 0);
         }
     }
 }
