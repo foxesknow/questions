@@ -12,26 +12,19 @@ namespace LeetCode.Q14_LongestCommonPrefix
         {
             if(strs.Length == 1) return strs[0];
 
-            var (length, referenceString) = strs.Min(s => (s.Length, s));
-            var builder = new StringBuilder(length);
+            Array.Sort(strs);
+            var first = strs[0];
+            var last = strs[strs.Length - 1];
+            var range = Math.Min(first.Length, last.Length);
 
-            for(var i = 0; i < length; i++)
+            for(var i = 0; i < range; i++)
             {
-                var c = referenceString[i];
-                
-                var allSame = strs.All(s => s[i] == c);
-                if(allSame)
-                {
-                    builder.Append(c);
-                }
-                else
-                {
-                    break;
-                }
+                if(first[i] == last[i]) continue;
+
+                return first.Substring(0, i);
             }
 
-
-            return builder.ToString();
+            return first;
         }
     }
 }
