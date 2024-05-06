@@ -33,7 +33,7 @@ namespace LeetCode
         {
             ListNode head = null;
 
-            for(var i = values.Length -1; i >= 0; i--)
+            for(var i = values.Length - 1; i >= 0; i--)
             {
                 head= new ListNode(values[i], head);
             }
