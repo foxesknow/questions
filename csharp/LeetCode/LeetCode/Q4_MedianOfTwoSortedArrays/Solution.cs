@@ -11,15 +11,20 @@ namespace LeetCode.Q4_MedianOfTwoSortedArrays
         public double FindMedianSortedArrays(int[] nums1, int[] nums2) 
         {
             var totalLength = nums1.Length + nums2.Length;
-            var medianPosition = (int)Math.Ceiling(totalLength / 2d);
-            bool isEven = (totalLength % 2) == 0;            
+            var medianPosition = totalLength / 2;
+            bool isEven = (totalLength % 2) == 0;
+
+            if(isEven)
+            {
+                medianPosition--;
+            }
 
             Span<int> s1 = nums1;
             Span<int> s2 = nums2;
 
             double median = 0;
 
-            for(var i = 0; i < medianPosition; i++)
+            for(var i = 0; i <= medianPosition; i++)
             {
                 median = Advance(ref s1, ref s2);
             }
