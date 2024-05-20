@@ -16,6 +16,8 @@ namespace LeetCode
         /// <returns></returns>
         public int[] GenerateView(TreeNode root)
         {
+            if(root is null) return Array.Empty<int>();
+
             var left = root;
             var right = root;
 
