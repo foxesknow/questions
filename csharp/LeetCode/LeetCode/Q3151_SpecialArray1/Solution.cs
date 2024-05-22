@@ -17,9 +17,7 @@ namespace LeetCode.Q3151_SpecialArray1
                 var rhs = Parity(nums[i]);
                 var lhs = Parity(nums[i - 1]);
 
-                if(lhs ^ rhs) continue;
-
-                return false;
+                if(lhs == rhs) return false;
             }
 
             return true;
