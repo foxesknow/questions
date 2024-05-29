@@ -12,7 +12,7 @@ function twoSum(nums: number[], target: number): number[] {
         cache.set(nums[i], i);
     }
 
-    return null;
+    return [];
 }
 
 test("example 1", () => {

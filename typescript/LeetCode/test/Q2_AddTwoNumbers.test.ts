@@ -12,8 +12,8 @@ class ListNode {
 function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | null {
     let carry = 0;
 
-    let head : ListNode = null;
-    let tail : ListNode = null;
+    let head : ListNode | null = null;
+    let tail : ListNode | null = null;
 
     while (l1 != null || l2 != null || carry != 0) {
         let sum = carry;
@@ -47,9 +47,9 @@ test("example 1", () => {
     let l2 = new ListNode(5, new ListNode(6, new ListNode(4)));
     
     let result = addTwoNumbers(l1, l2);
-    expect(result.val).toBe(7);
-    expect(result.next.val).toBe(0);
-    expect(result.next.next.val).toBe(8);
+    expect(result!.val).toBe(7);
+    expect(result!.next!.val).toBe(0);
+    expect(result!.next!.next!.val).toBe(8);
 });
 
 test("example 2", () => {
@@ -57,8 +57,8 @@ test("example 2", () => {
     let l2 = new ListNode(0);
     
     let result = addTwoNumbers(l1, l2);
-    expect(result.val).toBe(0);
-    expect(result.next).toBe(null);
+    expect(result!.val).toBe(0);
+    expect(result!.next).toBe(null);
 });
 
 test("example 4", () => {
@@ -66,6 +66,6 @@ test("example 4", () => {
     let l2 = new ListNode(7);
     
     let result = addTwoNumbers(l1, l2);
-    expect(result.val).toBe(6);
-    expect(result.next.val).toBe(1);
+    expect(result!.val).toBe(6);
+    expect(result!.next!.val).toBe(1);
 });
