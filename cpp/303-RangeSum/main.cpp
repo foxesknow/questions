@@ -10,18 +10,18 @@ private:
 public:
     NumArray(vector<int>& nums) : m_Data(std::move(nums))
     {
-        
+        // Build a prefix sum
+        for(auto it = m_Data.begin() + 1; it != m_Data.end(); ++it)
+        {
+            *it += *(it - 1);
+        }
     }
     
     int sumRange(int left, int right) 
     {
-        auto sum = 0;
+        if(left == 0) return m_Data[right];
 
-        for(auto i = left; i <= right; i++)
-        {
-            sum += m_Data[i];
-        }
-
+        auto sum = m_Data[right] - m_Data[left - 1];
         return sum;    
     }
 };
