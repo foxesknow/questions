@@ -4,6 +4,7 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 
 struct ListNode 
 {
@@ -30,6 +31,17 @@ inline void print(ListNode *node)
     }
 
     std::cout << "\n";
+}
+
+template<typename T>
+inline void print(const std::vector<T> &data)
+{
+    for(const auto &i : data)
+    {
+        std::cout << i << " ";
+    }
+
+    std::cout << std::endl;
 }
 
 inline ListNode *makeList(std::initializer_list<int> values)
