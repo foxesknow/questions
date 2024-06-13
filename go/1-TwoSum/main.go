@@ -11,7 +11,7 @@ func twoSum(nums []int, target int) []int {
 		if existing, found := indexes[target-value]; found {
 			return []int{existing, i}
 		} else {
-			// Remember where we saw the value for later
+			// Remember where we saw the value for later 
 			indexes[value] = i
 		}
 	}
