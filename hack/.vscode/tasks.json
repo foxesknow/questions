@@ -1,0 +1,11 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+        "label": "HackTest",
+        "command": "vendor/bin/hacktest", // Could be any other shell command
+        "args": ["tests/"],
+        "type": "shell"
+        }
+    ]
+}
