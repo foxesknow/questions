@@ -1,7 +1,7 @@
 use function Facebook\FBExpect\expect;
 use type Facebook\HackTest\{DataProvider, HackTest};
 
-final class RomanToIntegerTest extends HackTest {
+final class Q13_RomanToIntegerTest extends HackTest {
     public function testExample1(): void {
         $result = roman_to_int("III");
         expect($result)->toBeSame(3);

@@ -1,7 +1,7 @@
 use function Facebook\FBExpect\expect;
 use type Facebook\HackTest\{DataProvider, HackTest};
 
-final class TwoSumTest extends HackTest {
+final class Q1_TwoSumTest extends HackTest {
     public function testExample1(): void {
         $nums = vec[2, 7, 11, 15];
         $result = two_sum($nums, 9);
