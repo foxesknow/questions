@@ -7,7 +7,6 @@ class ListNode {
   public function __construct(int $val, ?ListNode $next = null) {
     $this->val = $val;
     $this->next = $next;
-
   }
 
   public static function requireNext(inout ListNode $node): ListNode {
