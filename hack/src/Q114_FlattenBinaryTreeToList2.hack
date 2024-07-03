@@ -1,10 +1,10 @@
 namespace LeetCode\Q114;
 
-/*
- * To flatten the list we just need to walk the tree in right-left-node order
- * maintaining a a tail we'll append to (ala cons)
- */
 class Solution2 {
+  /*
+  * To flatten the list we just need to walk the tree in right-left-node order
+  * maintaining a a tail we'll append to (ala cons)
+  */
   public function flatten(?\TreeNode $node): void {
     if ($node is null) return;
 
