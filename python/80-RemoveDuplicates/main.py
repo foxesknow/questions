@@ -41,7 +41,7 @@ class Tests(unittest.TestCase):
         solution = Solution()
         self.assertEqual(solution.removeDuplicates([0]), 1)
 
-    def test_example3(self):
+    def test_example4(self):
         solution = Solution()
         self.assertEqual(solution.removeDuplicates([1,1,1,2,2,3]), 5)
 
