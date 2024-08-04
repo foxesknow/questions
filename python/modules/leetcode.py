@@ -1,5 +1,5 @@
 from typing import Optional, List
-
+from collections import deque
 
 class ListNode:
     def __init__(self, val: int=0, next: Optional['ListNode'] = None):
@@ -38,3 +38,31 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
+
+    @staticmethod
+    def makeTree(root_value: int, *numbers: Optional[int]) -> 'TreeNode':
+        root = TreeNode(root_value)
+        q = deque[Optional['TreeNode']]()
+        q.append(root)
+
+        for i in range(0, len(numbers), 2):
+            node = q.popleft()
+            
+            left_val = numbers[i]
+            if left_val and node:
+                left_node = TreeNode(left_val)
+                node.left = left_node
+                q.append(left_node)
+            else:
+                q.append(None)
+
+            right_val = numbers[i + 1]
+            if right_val and node:
+                right_node = TreeNode(right_val)
+                node.right = right_node
+                q.append(right_node)
+            else:
+                q.append(None)
+
+
+        return root
