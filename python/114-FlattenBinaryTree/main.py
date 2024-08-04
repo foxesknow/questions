@@ -1,4 +1,5 @@
 from typing import Optional
+from collections.abc import Iterator
 
 import sys
 sys.path.append('../modules')
@@ -15,8 +16,8 @@ class Solution:
         if not root:
             return None
 
-        head = None
-        next = None
+        head: Optional[TreeNode] = None
+        next: Optional[TreeNode] = None
 
         for node in self.pre_order(root):
             if head is None:
@@ -27,7 +28,7 @@ class Solution:
                 next = next.right
 
 
-    def pre_order(self, root: Optional[TreeNode]):
+    def pre_order(self, root: Optional[TreeNode]) -> Iterator[TreeNode]:
         if root:
             left = root.left
             right = root.right
