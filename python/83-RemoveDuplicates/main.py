@@ -2,13 +2,9 @@ from typing import Optional
 
 import unittest
 
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
-
-    def __repr__(self):
-        return f"{self.val}"
+import sys
+sys.path.append('../modules')
+from leetcode import ListNode
 
 class Solution:
     def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
@@ -38,25 +34,25 @@ class Tests(unittest.TestCase):
         solution = Solution()
         list = ListNode(1, ListNode(1))
         normalized = solution.deleteDuplicates(list)
-        self.assertIsNotNone(normalized)
+        self.assertListEqual(ListNode.flatten(normalized), [1])
 
     def test_example1(self):
         solution = Solution()
         list = ListNode(1, ListNode(1, ListNode(2)))
         normalized = solution.deleteDuplicates(list)
-        self.assertIsNotNone(normalized)
+        self.assertListEqual(ListNode.flatten(normalized), [1, 2])
 
     def test_example2(self):
         solution = Solution()
         list = ListNode(1, ListNode(1, ListNode(2, ListNode(3, ListNode(3)))))
         normalized = solution.deleteDuplicates(list)
-        self.assertIsNotNone(normalized)
+        self.assertListEqual(ListNode.flatten(normalized), [1, 2, 3])
 
     def test_example3(self):
         solution = Solution()
         list = ListNode(1, ListNode(2))
         normalized = solution.deleteDuplicates(list)
-        self.assertIsNotNone(normalized)
+        self.assertListEqual(ListNode.flatten(normalized), [1, 2])
 
 if __name__ == '__main__':
     unittest.main()

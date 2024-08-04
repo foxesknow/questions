@@ -52,8 +52,11 @@ class Tests(unittest.TestCase):
 
         result = solution.addTwoNumbers(l1, l2)
         self.assertIsNotNone(result)
-        self.assertTrue(ListNode.asNode(result).val == 0)
-        self.assertIsNone(result.next);
+
+        values = ListNode.flatten(result)
+        self.assertTrue(len(values) == 1)
+
+        self.assertTrue(values[0] == 0)
 
     def test_example3(self):
         solution = Solution()
@@ -63,15 +66,12 @@ class Tests(unittest.TestCase):
 
         result = solution.addTwoNumbers(l1, l2)
         self.assertIsNotNone(result)
-        self.assertTrue(result.val == 8)
-        self.assertTrue(result.next.val == 9)
-        self.assertTrue(result.next.next.val == 9)
-        self.assertTrue(result.next.next.next.val == 9)
-        self.assertTrue(result.next.next.next.next.val == 0)
-        self.assertTrue(result.next.next.next.next.next.val == 0)
-        self.assertTrue(result.next.next.next.next.next.next.val == 0)
-        self.assertTrue(result.next.next.next.next.next.next.next.val == 1)
-        self.assertIsNone(result.next.next.next.next.next.next.next.next)
+
+        values = ListNode.flatten(result)
+        self.assertTrue(len(values) == 8)
+
+        self.assertListEqual(values, [8, 9, 9, 9, 0, 0, 0, 1]);
+
         
 
 

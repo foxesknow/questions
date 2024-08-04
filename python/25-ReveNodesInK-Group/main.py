@@ -1,12 +1,11 @@
 from typing import Optional
 from typing import List
 
-import unittest
+import sys
+sys.path.append('../modules')
+from leetcode import ListNode
 
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
+import unittest
 
 class Solution:
     def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:

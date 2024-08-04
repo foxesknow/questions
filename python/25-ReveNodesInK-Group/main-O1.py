@@ -4,13 +4,10 @@ from typing import Tuple
 
 import unittest
 
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
+import sys
+sys.path.append('../modules')
+from leetcode import ListNode
 
-    def __repr__(self):
-        return f"{self.val}"
 
 class Solution:
     def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:

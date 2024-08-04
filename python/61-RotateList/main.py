@@ -3,13 +3,10 @@ from typing import Tuple
 
 import unittest
 
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
+import sys
+sys.path.append('../modules')
+from leetcode import ListNode
 
-    def __repr__(self):
-        return f"{self.val}"
 
 class Solution:
     def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
@@ -51,13 +48,14 @@ class Solution:
             tail = head
             head = head.next
 
-        return [count, tail]
+        return (count, tail)
     
 class Tests(unittest.TestCase):
     def test_example1(self):
         solution = Solution()
-        l = ListNode(0, ListNode(1, ListNode(2)))
-        solution.rotateRight(l, 1)
+        l = ListNode.makeList(0, 1, 2)
+        result = solution.rotateRight(l, 1)
+        self.assertListEqual(ListNode.flatten(result), [2, 0, 1])
 
     def test_example2(self):
         solution = Solution()

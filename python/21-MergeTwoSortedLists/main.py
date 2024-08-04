@@ -1,10 +1,11 @@
 from typing import Optional
+
+import sys
+sys.path.append('../modules')
+from leetcode import ListNode
+
 import unittest
 
-class ListNode:
-     def __init__(self, val=0, next=None):
-         self.val = val
-         self.next = next
 
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
@@ -22,8 +23,11 @@ class Solution:
 class Tests(unittest.TestCase):
     def test_example1(self):
         solution = Solution()
-        s = solution.mergeTwoLists(ListNode(1, ListNode(2, ListNode(4))), ListNode(1, ListNode(3, ListNode(4))))
-        print(s)
+        
+        s = solution.mergeTwoLists(ListNode.makeList(1, 2, 4), ListNode.makeList(1, 3, 4))
+        values = ListNode.flatten(s)
+
+        self.assertListEqual(values, [1, 1, 2, 3, 4, 4])
 
 if __name__ == '__main__':
     unittest.main()
