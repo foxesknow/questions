@@ -1,12 +1,10 @@
 from typing import Optional
 
-import unittest
+import sys
+sys.path.append('../modules')
+from leetcode import TreeNode
 
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+import unittest
 
 class Solution:
     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:

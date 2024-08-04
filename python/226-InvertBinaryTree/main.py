@@ -2,11 +2,10 @@ from typing import Optional, Self
 
 import unittest
 
-class TreeNode:
-    def __init__(self, val: int = 0, left: Optional[Self] =None, right: Optional[Self] = None):
-        self.val = val
-        self.left = left
-        self.right = right
+import sys
+sys.path.append('../modules')
+from leetcode import TreeNode
+
 class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         if root:

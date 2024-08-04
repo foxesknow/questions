@@ -1,13 +1,10 @@
 from typing import Optional
-from typing import List
+
+import sys
+sys.path.append('../modules')
+from leetcode import TreeNode
 
 import unittest
-
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
 
 class Solution:
     def flatten(self, root: Optional[TreeNode]):
