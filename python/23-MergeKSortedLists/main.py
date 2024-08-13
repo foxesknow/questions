@@ -2,14 +2,11 @@ from typing import Optional
 from typing import List
 import unittest
 
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
 
-    def __repr__(self):
-        return f"{self.val}"
-    
+import sys
+sys.path.append('../modules')
+from leetcode import ListNode
+
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         head: Optional[ListNode] = None

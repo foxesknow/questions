@@ -1,10 +1,9 @@
 from typing import Optional
 import unittest
 
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
+import sys
+sys.path.append('../modules')
+from leetcode import ListNode
 
 class Solution:
     def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
@@ -25,12 +24,10 @@ class Solution:
 class Tests(unittest.TestCase):
     def test_example1(self):
         solution = Solution()
-        s = solution.swapPairs(ListNode(1, ListNode(2, ListNode(3, ListNode(4)))))
-        self.assertTrue(s.val == 2)
-        self.assertTrue(s.next.val == 1)
-        self.assertTrue(s.next.next.val == 4)
-        self.assertTrue(s.next.next.next.val == 3)
-        self.assertIsNone(s.next.next.next.next)
+        s = solution.swapPairs(ListNode.makeList(1, 2, 3, 4))
+        
+        values = ListNode.flatten(s)
+        self.assertListEqual(values, [2, 1, 4, 3]);
 
     def test_example2(self):
         solution = Solution()

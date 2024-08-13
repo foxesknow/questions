@@ -1,14 +1,11 @@
 from typing import Optional
 
+import sys
+sys.path.append('../modules')
+from leetcode import ListNode
+
 import unittest
 
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
-
-    def __repr__(self):
-        return f"{self.val}"
 
 class Solution:
     def removeElements(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
@@ -30,12 +27,12 @@ class Solution:
 class Tests(unittest.TestCase):
     def test_example1(self):
         solution = Solution()
-        nodes = ListNode(1, ListNode(2, ListNode(6, ListNode(3, ListNode(4, ListNode(5, ListNode(6)))))))
+        nodes = ListNode.makeList(1, 2, 6, 3, 4, 5, 6)
         solution.removeElements(nodes, 6)
 
     def test_example3(self):
         solution = Solution()
-        nodes = ListNode(7, ListNode(7, ListNode(7, ListNode(7))))
+        nodes = ListNode.makeList(7, 7, 7, 7)
         self.assertEqual(solution.removeElements(nodes, 7), None)
 
 if __name__ == '__main__':

@@ -1,13 +1,10 @@
-from typing import List
 from typing import Optional
 
+import sys
+sys.path.append('../modules')
+from leetcode import ListNode
+
 import unittest
-
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
-
 
 class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
@@ -35,15 +32,17 @@ class Tests(unittest.TestCase):
     def test_example1(self):
         solution = Solution()
 
-        l1 = ListNode(2, ListNode(4, ListNode(3)))
-        l2 = ListNode(5, ListNode(6, ListNode(4)))
+        l1 = ListNode.makeList(2, 4, 3);
+        l2 = ListNode.makeList(5, 6, 4);
 
         result = solution.addTwoNumbers(l1, l2)
         self.assertIsNotNone(result)
-        self.assertTrue(result.val == 7)
-        self.assertTrue(result.next.val == 0)
-        self.assertTrue(result.next.next.val == 8)
-        self.assertIsNone(result.next.next.next);
+
+        values = ListNode.flatten(result)
+        self.assertTrue(len(values) == 3)
+        self.assertTrue(values[0] == 7)
+        self.assertTrue(values[1] == 0)
+        self.assertTrue(values[2] == 8)
 
     def test_example2(self):
         solution = Solution()
@@ -53,8 +52,11 @@ class Tests(unittest.TestCase):
 
         result = solution.addTwoNumbers(l1, l2)
         self.assertIsNotNone(result)
-        self.assertTrue(result.val == 0)
-        self.assertIsNone(result.next);
+
+        values = ListNode.flatten(result)
+        self.assertTrue(len(values) == 1)
+
+        self.assertTrue(values[0] == 0)
 
     def test_example3(self):
         solution = Solution()
@@ -64,15 +66,12 @@ class Tests(unittest.TestCase):
 
         result = solution.addTwoNumbers(l1, l2)
         self.assertIsNotNone(result)
-        self.assertTrue(result.val == 8)
-        self.assertTrue(result.next.val == 9)
-        self.assertTrue(result.next.next.val == 9)
-        self.assertTrue(result.next.next.next.val == 9)
-        self.assertTrue(result.next.next.next.next.val == 0)
-        self.assertTrue(result.next.next.next.next.next.val == 0)
-        self.assertTrue(result.next.next.next.next.next.next.val == 0)
-        self.assertTrue(result.next.next.next.next.next.next.next.val == 1)
-        self.assertIsNone(result.next.next.next.next.next.next.next.next)
+
+        values = ListNode.flatten(result)
+        self.assertTrue(len(values) == 8)
+
+        self.assertListEqual(values, [8, 9, 9, 9, 0, 0, 0, 1]);
+
         
 
 

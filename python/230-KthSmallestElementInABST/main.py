@@ -2,13 +2,11 @@ from typing import Optional
 from typing import Iterator
 from typing import Self
 
-import unittest
+import sys
+sys.path.append('../modules')
+from leetcode import TreeNode
 
-class TreeNode:
-    def __init__(self, val: int=0, left: Optional[Self] = None, right: Optional[Self] = None):
-        self.val = val
-        self.left = left
-        self.right = right
+import unittest
 
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
