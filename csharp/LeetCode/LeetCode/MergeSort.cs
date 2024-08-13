@@ -8,18 +8,25 @@ namespace LeetCode
 {
     public class MergeSort
     {
-        private void Combine(int[] numbers, int left, int mid, int right)
+        /// <summary>
+        /// Combines a left and right block that are adjacent to each other in memory.
+        /// The result will be a run of sorted numbers running from left to the end of
+        /// the block that is (leftLength + rightLength) long.
+        /// </summary>
+        /// <param name="numbers">The array we're sorting</param>
+        /// <param name="left">The start of the left block to combine</param>
+        /// <param name="leftLength">The length of the left block</param>
+        /// <param name="right">The start of the right block</param>
+        /// <param name="rightLength">The length of the right block</param>
+        private void Combine(int[] numbers, int left, int leftLength, int right, int rightLength)
         {
-            var leftLength = mid - left + 1;
-            var rightLength = right - mid;
-
             // We need to create local copies of the data as we're going to 
             // be overwriting the incoming array
             var leftScratch = new int[leftLength];
             Array.Copy(numbers, left, leftScratch, 0, leftScratch.Length);
 
             var rightScratch = new int[rightLength];
-            Array.Copy(numbers, mid + 1, rightScratch, 0, rightScratch.Length);
+            Array.Copy(numbers, right, rightScratch, 0, rightScratch.Length);
 
             var offset = left;
             var l = 0;
@@ -59,7 +66,11 @@ namespace LeetCode
                 var mid = left + (right - left) / 2;
                 Sort(numbers, left, mid);
                 Sort(numbers, mid + 1, right);
-                Combine(numbers, left, mid, right);
+
+                var leftLength = mid - left + 1;
+                var rightLength = right - mid;
+
+                Combine(numbers, left, leftLength, mid + 1, rightLength);
             }
         }
 
