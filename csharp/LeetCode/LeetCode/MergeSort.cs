@@ -35,7 +35,8 @@ namespace LeetCode
             // Combine the 2 lists until we reach the end of one or both
             while(l < leftLength && r < rightLength)
             {
-                if(leftScratch[l] < rightScratch[r])
+                // The <= makes this stable
+                if(leftScratch[l] <= rightScratch[r])
                 {
                     numbers[offset++] = leftScratch[l++];
                 }
