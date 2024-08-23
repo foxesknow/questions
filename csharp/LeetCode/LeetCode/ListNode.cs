@@ -29,6 +29,11 @@ namespace LeetCode
             return head;
         }
 
+        public override string ToString()
+        {
+            return val.ToString();
+        }
+
         public static ListNode Make(params int[] values)
         {
             ListNode head = null;
