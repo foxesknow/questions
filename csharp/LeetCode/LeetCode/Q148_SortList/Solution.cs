@@ -25,19 +25,53 @@ namespace LeetCode.Q148_SortList
 
         private ListNode Combine(ListNode left, ListNode right)
         {
-            if(left is null) return right;
-            if(right is null) return left;
+            ListNode head = null;
+            ListNode tail = null;
 
-            if(left.val <= right.val)
+            while(left is not null && right is not null)
             {
-                left.next = Combine(left.next, right);
-                return left;
+                if(left.val <= right.val)
+                {
+                    if(head is null)
+                    {
+                        head = tail = left;
+                    }
+                    else
+                    {
+                        tail.next = left;
+                        tail = left;
+                    }
+
+                    left = left.next;
+                    tail.next = null;
+                }
+                else
+                {
+                    if(head is null)
+                    {
+                        head = tail = right;
+                    }
+                    else
+                    {
+                        tail.next = right;
+                        tail = right;
+                    }
+
+                    right = right.next;
+                    tail.next = null;
+                }
+            }
+
+            if(left is not null)
+            {
+                tail.next = left;
             }
             else
             {
-                right.next = Combine(left, right.next);
-                return right;
+                tail.next = right;
             }
+
+            return head;
         }
 
         private ListNode GetMidpoint(ListNode node)
