@@ -11,8 +11,10 @@ namespace LeetCode
         public int GetBillionUsersDay(float[] growthRates) 
         {
             /*
+             * (https://leetcode.com/discuss/interview-question/746520/facebook-recruiting-portal-1-billion-users)
              * We need to find the optimal power for all growth rates such that
-             * their sum comes to 1bn.
+             * their sum comes to 1bn. Each growth rate relates to the rate of 
+             * growth for a different application within the business
              * 
              * We can do this linearly, by just raising each to the power N until
              * the sum of the rates >= 1bn
