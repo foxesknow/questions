@@ -20,5 +20,23 @@ namespace LeetCode.Q226_InvertBinaryTree
 
             return root;
         }
+
+        public TreeNode InvertTree_NonRecursive(TreeNode root) 
+        {
+            if(root is null) return root;
+
+            var stack = new Stack<TreeNode>();
+            stack.Push(root);
+
+            while(stack.TryPop(out var node))
+            {
+                (node.left, node.right) = (node.right, node.left);
+
+                if(node.left is not null) stack.Push(node.left);
+                if(node.right is not null) stack.Push(node.right);
+            }
+
+            return root;
+        }
     }
 }
