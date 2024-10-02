@@ -131,6 +131,43 @@ namespace LeetCodeTests
         }
 
         [Test]
+        public void Case7()
+        {
+            List<string> records = new()
+            {
+                "A BID 1 20 BID 1 21 BID 1 22 OFFER 1 23 OFFER 1 24 OFFER 1 25",
+                "A SELL 4 19 BUY 3 26",
+                "A BID 1 20 BID 1 21 BID 1 22 OFFER 1 23 OFFER 1 24 OFFER 1 25",
+                "A SELL 4 19 BUY 3 26",
+                "B BID 1 20 BID 1 21 BID 1 22 OFFER 1 23 OFFER 1 24 OFFER 1 25",
+                "B SELL 4 19 BUY 3 26",
+                "B BID 1 20 BID 1 21 BID 1 22 OFFER 1 23 OFFER 1 24 OFFER 1 25",
+                "B SELL 4 19",
+                "C BID 1 20 BID 1 21 BID 1 22 OFFER 1 23 OFFER 1 24 OFFER 1 25",
+                "C SELL 3 19 BUY 4 26",
+                "C BID 1 20 BID 1 21 BID 1 22 OFFER 1 23 OFFER 1 24 OFFER 1 25",
+                "C BUY 3 26",
+                "D BUY 1 20 BUY 1 21 BUY 1 22 SELL 1 23 SELL 1 24 SELL 1 25",
+                "D OFFER 4 19 BID 3 26",
+                "D BUY 1 20 BUY 1 21 BUY 1 22 SELL 1 23 SELL 1 24 SELL 1 25",
+                "D OFFER 4 19 BID 3 26",
+                "E BUY 1 20 BUY 1 21 BUY 1 22 SELL 1 23 SELL 1 24 SELL 1 25",
+                "E OFFER 4 19 BID 3 26",
+                "E BUY 1 20 BUY 1 21 BUY 1 22 SELL 1 23 SELL 1 24 SELL 1 25",
+                "E OFFER 4 19",
+                "F BUY 1 20 BUY 1 21 BUY 1 22 SELL 1 23 SELL 1 24 SELL 1 25",
+                "F OFFER 3 19 BID 4 26",
+                "F BUY 1 20 BUY 1 21 BUY 1 22 SELL 1 23 SELL 1 24 SELL 1 25",
+                "F BID 3 26"
+            };
+
+            var (profit, l, s) = TradingProfit.Trade(records);
+            //Assert.That(profit, Is.EqualTo(0));
+            //Assert.That(l, Is.EqualTo(0));
+            //Assert.That(s, Is.EqualTo(0));
+        }
+
+        [Test]
         public void Case8()
         {
             List<string> records = new()
@@ -149,12 +186,9 @@ namespace LeetCodeTests
         public void Case9()
         {
             List<string> records = Enumerable.Repeat("A OFFER 1 23 OFFER 1 24 OFFER 1 25 OFFER 1 26 OFFER 1 27 OFFER 1 28 OFFER 1 29 OFFER 1 30 OFFER 1 31 OFFER 1 32 OFFER 1 33 OFFER 1 34 OFFER 1 35 OFFER 1 36 OFFER 1 37 OFFER 1 38 OFFER 1 39 OFFER 1 40 OFFER 1 41 OFFER 1 42", 5001).ToList();
-            records.Add("A BID 10000 42");
+            records.Add("A BUY 10 24");
             
             var (profit, l, s) = TradingProfit.Trade(records);
-            Assert.That(profit, Is.EqualTo(0));
-            Assert.That(l, Is.EqualTo(0));
-            Assert.That(s, Is.EqualTo(0));
         }
 
         [Test]

@@ -30,6 +30,17 @@ namespace LeetCode
             public int Price{get; init;}
         }
 
+        class PriceLevel
+        {
+            public PriceLevel(int price)
+            {
+                this.Price = price;
+            }
+
+            public int Price{get;}
+            public List<Order> Orders{get;} = new();
+        }
+
         class BuyComparer : IComparer<Order>
         {
             public static IComparer<Order> Instance = new BuyComparer();
@@ -52,8 +63,8 @@ namespace LeetCode
 
         class OrderBook
         {
-            private readonly List<Order> m_Buy = new();
-            private readonly List<Order> m_Sell = new();
+            private readonly List<PriceLevel> m_Buy = new();
+            private readonly List<PriceLevel> m_Sell = new();
 
             public int Profit{get; private set;}
 
@@ -71,11 +82,13 @@ namespace LeetCode
 
             public (int Long, int Short) CalculateExposure()
             {
-                var @long = m_Buy.Where(order => order.OrderAction == OrderAction.Buy)
+                var @long = m_Buy.SelectMany(level => level.Orders)
+                                 .Where(order => order.OrderAction == OrderAction.Buy)
                                  .Select(order => order.Price * order.Size)
                                  .Sum();
 
-                var @short= m_Sell.Where(order => order.OrderAction == OrderAction.Sell)
+                var @short= m_Sell.SelectMany(level => level.Orders)
+                                  .Where(order => order.OrderAction == OrderAction.Sell)
                                   .Select(order => order.Price * order.Size)
                                   .Sum();
 
@@ -86,48 +99,69 @@ namespace LeetCode
             {
                 int profit = 0;
 
-                var i = 0;
-                while(i < m_Buy.Count)
+                for(var priceLevelIndex = 0; priceLevelIndex < m_Buy.Count; priceLevelIndex++)
                 {
                     if(sellOrder.Size == 0) break;
-                    if(sellOrder.Price > m_Buy[i].Price) break;
+                    var level = m_Buy[priceLevelIndex];
+                    if(sellOrder.Price > level.Price) break;
 
-                    var buy = m_Buy[i];
-
-                    // We can match at this level
-                    var quantityToMatch = Math.Min(sellOrder.Size, buy.Size);
-
-                    if(IsProfitTrade(buy, sellOrder))
+                    var i = 0;
+                    while(i < level.Orders.Count)
                     {
-                        var thisProfit = quantityToMatch * Math.Abs(sellOrder.Price - buy.Price);
-                        profit += thisProfit;
-                    }
+                        if(sellOrder.Size == 0) break;
+                        var buy = level.Orders[i];
 
-                    sellOrder = sellOrder with {Size = sellOrder.Size - quantityToMatch};
-                    buy = buy with {Size = buy.Size - quantityToMatch};
+                        // We can match at this level
+                        var quantityToMatch = Math.Min(sellOrder.Size, buy.Size);
 
-                    if(buy.Size == 0)
-                    {
-                        m_Buy.RemoveAt(i);
-                    }
-                    else
-                    {
-                        m_Buy[i] = buy;
-                        i++;
+                        if(IsProfitTrade(buy, sellOrder))
+                        {
+                            var thisProfit = quantityToMatch * Math.Abs(sellOrder.Price - buy.Price);
+                            profit += thisProfit;
+                        }
+
+                        sellOrder = sellOrder with {Size = sellOrder.Size - quantityToMatch};
+                        buy = buy with {Size = buy.Size - quantityToMatch};
+
+                        if(buy.Size == 0)
+                        {
+                            level.Orders.RemoveAt(i);
+                        }
+                        else
+                        {
+                            level.Orders[i] = buy;
+                            i++;
+                        }
                     }
                 }
 
                 // If there's anything left on the order then add it to the buy side
                 if(sellOrder.Size > 0)
                 {
-                    var index = m_Sell.BinarySearch(sellOrder, SellComparer.Instance);
-                    if(index >= 0)
+                    var updated = false;
+                    for(var i = 0; i < m_Sell.Count && !updated; i++)
                     {
-                        m_Sell.Insert(index, sellOrder);
+                        var level = m_Sell[i];
+
+                        if(sellOrder.Price == level.Price)
+                        {
+                            level.Orders.Add(sellOrder);
+                            updated = true;
+                        }
+                        else if(sellOrder.Price < level.Price)
+                        {
+                            var newLevel = new PriceLevel(sellOrder.Price);
+                            newLevel.Orders.Add(sellOrder);
+                            m_Sell.Insert(i, newLevel);
+                            updated = true;
+                        }
                     }
-                    else
+
+                    if(!updated)
                     {
-                        m_Sell.Insert(~index, sellOrder);
+                        var newLevel = new PriceLevel(sellOrder.Price);
+                        newLevel.Orders.Add(sellOrder);
+                        m_Sell.Add(newLevel);
                     }
                 }
 
@@ -138,48 +172,72 @@ namespace LeetCode
             {
                 int profit = 0;
 
-                var i = 0;
-                while(i < m_Sell.Count)
+                for(var priceLevelIndex = 0; priceLevelIndex < m_Sell.Count; priceLevelIndex++)
                 {
                     if(buyOrder.Size == 0) break;
-                    if(buyOrder.Price < m_Sell[i].Price) break;
 
-                    var sell = m_Sell[i];
+                    var level = m_Sell[priceLevelIndex];
+                    if(buyOrder.Price < level.Price) break;
 
-                    // We can match at this level
-                    var quantityToMatch = Math.Min(buyOrder.Size, sell.Size);
-
-                    if(IsProfitTrade(buyOrder, sell))
+                    var i = 0;
+                    while(i < level.Orders.Count)
                     {
-                        var thisProfit = quantityToMatch * Math.Abs(buyOrder.Price - sell.Price);
-                        profit += thisProfit;
-                    }
+                        if(buyOrder.Size == 0) break;
+                        
 
-                    buyOrder = buyOrder with {Size = buyOrder.Size - quantityToMatch};
-                    sell = sell with {Size = sell.Size - quantityToMatch};
+                        var sell = level.Orders[i];
 
-                    if(sell.Size == 0)
-                    {
-                        m_Sell.RemoveAt(i);
-                    }
-                    else
-                    {
-                        m_Sell[i] = sell;
-                        i++;
+                        // We can match at this level
+                        var quantityToMatch = Math.Min(buyOrder.Size, sell.Size);
+
+                        if(IsProfitTrade(buyOrder, sell))
+                        {
+                            var thisProfit = quantityToMatch * Math.Abs(buyOrder.Price - sell.Price);
+                            profit += thisProfit;
+                        }
+
+                        buyOrder = buyOrder with {Size = buyOrder.Size - quantityToMatch};
+                        sell = sell with {Size = sell.Size - quantityToMatch};
+
+                        if(sell.Size == 0)
+                        {
+                            level.Orders.RemoveAt(i);
+                        }
+                        else
+                        {
+                            level.Orders[i] = sell;
+                            i++;
+                        }
                     }
                 }
 
                 // If there's anything left on the order then add it to the buy side
                 if(buyOrder.Size > 0)
                 {
-                    var index = m_Buy.BinarySearch(buyOrder, BuyComparer.Instance);
-                    if(index >= 0)
+                    var updated = false;
+                    for(var i = 0; i < m_Buy.Count && !updated; i++)
                     {
-                        m_Buy.Insert(index, buyOrder);
+                        var level = m_Buy[i];
+
+                        if(buyOrder.Price == level.Price)
+                        {
+                            level.Orders.Add(buyOrder);
+                            updated = true;
+                        }
+                        else if(buyOrder.Price > level.Price)
+                        {
+                            var newLevel = new PriceLevel(buyOrder.Price);
+                            newLevel.Orders.Add(buyOrder);
+                            m_Buy.Insert(i, newLevel);
+                            updated = true;
+                        }
                     }
-                    else
+
+                    if(!updated)
                     {
-                        m_Buy.Insert(~index, buyOrder);
+                        var newLevel = new PriceLevel(buyOrder.Price);
+                        newLevel.Orders.Add(buyOrder);
+                        m_Buy.Add(newLevel);
                     }
                 }
 
