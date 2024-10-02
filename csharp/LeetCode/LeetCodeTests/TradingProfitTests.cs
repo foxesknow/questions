@@ -162,9 +162,9 @@ namespace LeetCodeTests
             };
 
             var (profit, l, s) = TradingProfit.Trade(records);
-            //Assert.That(profit, Is.EqualTo(0));
-            //Assert.That(l, Is.EqualTo(0));
-            //Assert.That(s, Is.EqualTo(0));
+            Assert.That(profit, Is.EqualTo(114));
+            Assert.That(l, Is.EqualTo(89));
+            Assert.That(s, Is.EqualTo(166));
         }
 
         [Test]

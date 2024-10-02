@@ -41,26 +41,6 @@ namespace LeetCode
             public List<Order> Orders{get;} = new();
         }
 
-        class BuyComparer : IComparer<Order>
-        {
-            public static IComparer<Order> Instance = new BuyComparer();
-
-            public int Compare(Order x, Order y)
-            {
-                return y.Price.CompareTo(x.Price);
-            }
-        }
-
-        class SellComparer : IComparer<Order>
-        {
-            public static IComparer<Order> Instance = new SellComparer();
-
-            public int Compare(Order x, Order y)
-            {
-                return x.Price.CompareTo(y.Price);
-            }
-        }
-
         class OrderBook
         {
             private readonly List<PriceLevel> m_Buy = new();
