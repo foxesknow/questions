@@ -146,6 +146,18 @@ namespace LeetCodeTests
         }
 
         [Test]
+        public void Case9()
+        {
+            List<string> records = Enumerable.Repeat("A OFFER 1 23 OFFER 1 24 OFFER 1 25 OFFER 1 26 OFFER 1 27 OFFER 1 28 OFFER 1 29 OFFER 1 30 OFFER 1 31 OFFER 1 32 OFFER 1 33 OFFER 1 34 OFFER 1 35 OFFER 1 36 OFFER 1 37 OFFER 1 38 OFFER 1 39 OFFER 1 40 OFFER 1 41 OFFER 1 42", 5001).ToList();
+            records.Add("A BID 10000 42");
+            
+            var (profit, l, s) = TradingProfit.Trade(records);
+            Assert.That(profit, Is.EqualTo(0));
+            Assert.That(l, Is.EqualTo(0));
+            Assert.That(s, Is.EqualTo(0));
+        }
+
+        [Test]
         public void Case17()
         {
             List<string> records = new()
