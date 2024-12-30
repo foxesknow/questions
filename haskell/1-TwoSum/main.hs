@@ -1,4 +1,5 @@
 import Data.Map as Map
+
 find :: Int -> Int -> [Int] -> Map Int Int -> [Int]
 find _ _ [] _ = [-1, -1]
 find target index (number:rest) map=
