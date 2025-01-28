@@ -9,14 +9,14 @@ module Language =
         | Return of 'TResult
         | Loop of 'TAcc * 'TData
 
-    let looper acc body state  =
+    let looper acc body data  =
         let rec exec body acc data =
             let result = body acc data
             match result with
             | Return answer -> answer
             | Loop(acc, data) -> exec body acc data
 
-        exec body acc state
+        exec body acc data
 
     type Tests() =
         [<Test>]
