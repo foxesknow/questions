@@ -1,13 +1,14 @@
 ﻿namespace LeetCode
 
 open NUnit.Framework
+open Language
 
 module Q009_PalindromeNumber =
     let reverse x =
-        x |> Language.loop 0 (fun acc num ->
+        x |> looper 0 (fun acc num ->
             match num with
-            | 0 -> (acc, 0, false)
-            | x -> (((acc * 10) + (x % 10)), num / 10, true) 
+            | 0 -> Return acc
+            | x ->  Loop(((acc * 10) + (x % 10)), num / 10) 
         );
 
     let isPalindrome x =
