@@ -4,6 +4,7 @@ open NUnit.Framework
 
 //[<AutoOpen>]
 module Language =
+    [<Struct>]
     type LoopResult<'TAcc, 'TData, 'TResult> =
         | Return of 'TResult
         | Loop of 'TAcc * 'TData
