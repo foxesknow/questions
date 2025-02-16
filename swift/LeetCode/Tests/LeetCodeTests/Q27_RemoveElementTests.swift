@@ -20,6 +20,9 @@ class Q27_RemoveElementTests {
         var nums = [0, 1, 2, 2, 3, 0, 4, 2]
         let count = s.removeElement(&nums, 2)
         #expect(count == 5)
-        #expect(nums[0..<count] == [0, 1, 4, 0, 3])
+
+        var filtered = nums[0..<count]
+        filtered.sort()
+        #expect(filtered == [0, 0, 1, 3, 4])
     }
 }
