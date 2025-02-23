@@ -21,6 +21,6 @@ class Q23_MergeKSortedListsTests {
         let s = Q23.Solution();
 
         let result = s.mergeKLists([])
-        #expect(result!.flatten() == [])
+        #expect(result == nil)
     }
 }
