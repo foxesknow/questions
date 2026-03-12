@@ -40,5 +40,12 @@ namespace LeetCode.Q509_Fibonacci
                 return value;
             }
         }
+
+        public int FibLinq(int n) 
+        {
+            return Enumerable.Range(0, n)
+                   .Aggregate((0, 1), (acc, _) => (acc.Item2, acc.Item1 + acc.Item2))
+                   .Item1;
+        }
     }
 }

@@ -71,5 +71,35 @@ namespace LeetCodeTests.Q509_Fibonacci
             // The largest fib that can fit in a signed 32 bit int is 1,836,311,903
             Assert.That(s.FibCache(46), Is.EqualTo(1_836_311_903));
         }
+
+        [Test]
+        public void LinqExample1()
+        {
+            var s = new Solution();
+            Assert.That(s.FibLinq(2), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void LinqExample2()
+        {
+            var s = new Solution();
+            Assert.That(s.FibLinq(3), Is.EqualTo(2));
+        }
+
+        [Test]
+        public void LinqExample3()
+        {
+            var s = new Solution();
+            Assert.That(s.FibLinq(4), Is.EqualTo(3));
+        }
+
+        [Test]
+        public void LinqExample4()
+        {
+            var s = new Solution();
+            
+            // The largest fib that can fit in a signed 32 bit int is 1,836,311,903
+            Assert.That(s.FibLinq(46), Is.EqualTo(1_836_311_903));
+        }
     }
 }
