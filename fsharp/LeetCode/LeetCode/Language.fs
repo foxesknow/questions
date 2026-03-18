@@ -24,7 +24,7 @@ module Language =
             let total = 10 |> looper 0 (fun acc data ->
                 match data with
                 | 0 -> Return acc
-                | x -> Loop ((acc + x), (x - 1))
+                | x -> Loop (acc + x, x - 1)
             )
 
             Assert.That(total, Is.EqualTo(55));
