@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LeetCode.Q2_AddTwoNumbers;
 
 /// <summary>
-/// The question says there won't be more than 100 nodes
+/// The question says there won't be more than 100 nodes on either side
 /// </summary>
 public class RecursiveSolution
 {
